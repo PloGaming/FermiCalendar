@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.FermiCalendar"
+    tools:context=".RegisterUser"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="328dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="13dp"
+        android:text="@string/register_prompt"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/passwordTextInput"
+        app:layout_constraintStart_toStartOf="@+id/passwordTextInput"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextInput" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="40dp"
+        android:textColorHint="@color/md_theme_onSecondary"
+        app:counterTextColor="@color/md_theme_onSecondary"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/md_theme_onSecondary"
+        app:helperTextTextColor="@color/md_theme_onSecondary"
+        app:hintTextColor="@color/md_theme_onSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailTextInput"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/md_theme_onSecondary"
+        app:placeholderTextColor="@color/md_theme_onSecondary"
+        app:prefixTextColor="@color/md_theme_onSecondary"
+        app:startIconTint="@color/md_theme_onSecondary"
+        app:suffixTextColor="@color/md_theme_onSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_prompt"
+            android:inputType="textPassword"
+            android:textColor="@color/md_theme_onSecondary"
+            android:textColorHighlight="@color/md_theme_onSecondary"
+            android:textColorHint="@color/md_theme_onSecondary"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="81dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:textColorHint="@color/md_theme_onSecondary"
+        app:counterTextColor="@color/md_theme_onSecondary"
+        app:endIconTint="@color/md_theme_onSecondary"
+        app:helperTextTextColor="@color/md_theme_onSecondary"
+        app:hintTextColor="@color/md_theme_onSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:placeholderTextColor="@color/md_theme_onSecondary"
+        app:prefixTextColor="@color/md_theme_onSecondary"
+        app:startIconTint="@color/md_theme_onSecondary"
+        app:suffixTextColor="@color/md_theme_onSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_prompt"
+            android:textColor="@color/md_theme_onSecondary"
+            android:textColorHint="@color/md_theme_onSecondary"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="81dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="40dp"
+        android:textColorHint="@color/md_theme_onSecondary"
+        app:counterTextColor="@color/md_theme_onSecondary"
+        app:endIconTint="@color/md_theme_onSecondary"
+        app:helperTextTextColor="@color/md_theme_onSecondary"
+        app:hintTextColor="@color/md_theme_onSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classTextInput"
+        app:placeholderTextColor="@color/md_theme_onSecondary"
+        app:startIconTint="@color/md_theme_onSecondary"
+        app:suffixTextColor="@color/md_theme_onSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_prompt"
+            android:textColor="@color/md_theme_onSecondary"
+            android:textColorHint="@color/md_theme_onSecondary"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="5dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/classTextInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="40dp"
+        android:textColorHint="@color/md_theme_onSecondary"
+        app:counterTextColor="@color/md_theme_onSecondary"
+        app:endIconTint="@color/md_theme_onSecondary"
+        app:helperTextTextColor="@color/md_theme_onSecondary"
+        app:hintTextColor="@color/md_theme_onSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextInput"
+        app:placeholderTextColor="@color/md_theme_onSecondary"
+        app:prefixTextColor="@color/md_theme_onSecondary"
+        app:startIconTint="@color/md_theme_onSecondary"
+        app:suffixTextColor="@color/md_theme_onSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/classEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/class_prompt"
+            android:textColor="@color/md_theme_onSecondary"
+            android:textColorHint="@color/md_theme_onSecondary"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="81dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/signupLink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/signIn_prompt"
+        android:textAlignment="center"
+        android:textColor="@color/md_theme_primary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="138dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="139dp"
+        android:fontFamily="@font/clashgrotesk_variable"
+        android:text="@string/register_prompt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/md_theme_onSecondary"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
