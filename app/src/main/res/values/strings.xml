@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calendar</string>
+    <string name="email_prompt">School email</string>
+    <string name="password_prompt" translatable="false">Password</string>
+    <string name="register_prompt">Register</string>
+    <string name="name_prompt">Name</string>
+    <string name="class_prompt">Class</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>

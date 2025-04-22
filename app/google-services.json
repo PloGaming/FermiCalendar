@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "143890840061",
+    "firebase_url": "https://fermicalendar-5253f-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fermicalendar-5253f",
+    "storage_bucket": "fermicalendar-5253f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143890840061:android:b75749736b418af852c194",
+        "android_client_info": {
+          "package_name": "com.example.fermicalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143890840061-ku41bn23as7r1de09tkv2cmvkh5h6p1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL9LHIU9FL2RhxgJ77D1PqoHj196CuS9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143890840061-ku41bn23as7r1de09tkv2cmvkh5h6p1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
