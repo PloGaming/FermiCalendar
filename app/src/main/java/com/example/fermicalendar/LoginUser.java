@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,14 +24,21 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user);
 
+        // Set the rootView for the snack-bars
+        rootView = findViewById(R.id.rootView);
+
         // Obtain the object for interacting with Firebase auth
         mAuth = FirebaseAuth.getInstance();
+
+        // Localize the email language
+        mAuth.useAppLanguage();
 
         // Set the onclick event to the login button
         Button loginButton = findViewById(R.id.loginButton);
@@ -66,10 +74,20 @@ public class LoginUser extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in (non-null) and go to calendar activity
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            startActivity(new Intent(this, Calendar.class));
+        if(currentUser != null)
+        {
+            // Reload the user cached info
+            currentUser.reload().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    if (currentUser.isEmailVerified()) {
+                        startActivity(new Intent(this, Calendar.class));
+                    }
+                } else {
+                    Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
@@ -79,6 +97,7 @@ public class LoginUser extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
                             startActivity(new Intent(LoginUser.this, Calendar.class));
                         } else {

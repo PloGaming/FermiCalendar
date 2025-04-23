@@ -9,4 +9,6 @@
     <string name="formError">Completa il form!</string>
     <string name="authError">Errore di autenticazione</string>
     <string name="signUp_prompt">Non hai un\'Account?</string>
+    <string name="emailError">Errore nell\'inviare l\'email di verifica</string>
+    <string name="emailInfo">Email di verifica inviata a:</string>
 </resources>

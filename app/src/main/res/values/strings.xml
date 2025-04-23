@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calendar</string>
+
     <string name="email_prompt">School email</string>
     <string name="password_prompt" translatable="false">Password</string>
-    <string name="register_prompt">Register</string>
-    <string name="login_prompt" translatable="false">Login</string>
     <string name="name_prompt">Name</string>
     <string name="class_prompt">Class</string>
+
+    <string name="login_prompt" translatable="false">Login</string>
+    <string name="register_prompt">Register</string>
+
     <string name="signIn_prompt">Already have an Account?</string>
+    <string name="signUp_prompt">Don\'t have an Account?</string>
+
     <string name="formError">Complete the form!</string>
     <string name="authError">Authentication error!</string>
-    <string name="signUp_prompt">Don\'t have an Account?</string>
+    <string name="emailError">Failed to send verification email.</string>
+    <string name="emailInfo">Verification email sent to: </string>
 
     <string name="firebase_db_url" translatable="false">https://fermicalendar-5253f-default-rtdb.europe-west1.firebasedatabase.app/</string>
 </resources>
