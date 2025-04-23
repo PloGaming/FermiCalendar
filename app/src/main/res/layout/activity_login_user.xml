@@ -109,7 +109,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="220dp"
         android:fontFamily="@font/clashgrotesk_variable"
         android:text="@string/login_prompt"
         android:textAlignment="center"
@@ -117,6 +117,7 @@
         android:textColor="@color/md_theme_onSecondary"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
