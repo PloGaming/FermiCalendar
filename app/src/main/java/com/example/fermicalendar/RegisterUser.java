@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,45 +44,37 @@ public class RegisterUser extends AppCompatActivity {
 
         // Set the onclick event to the register button
         Button registerButton = findViewById(R.id.loginButton);
-        registerButton.setOnClickListener(new Button.OnClickListener() {
+        registerButton.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            // Closes the keyboard
+            View view = getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
 
-                // Closes the keyboard
-                View view = getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
+            // Get the user data from the form
+            String email, password, name, schoolClass;
+            email = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
+            password = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
+            name = ((EditText)findViewById(R.id.nameEditText)).getText().toString();
+            schoolClass = ((EditText)findViewById(R.id.classEditText)).getText().toString();
 
-                // Get the user data from the form
-                String email, password, name, schoolClass;
-                email = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
-                password = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
-                name = ((EditText)findViewById(R.id.nameEditText)).getText().toString();
-                schoolClass = ((EditText)findViewById(R.id.classEditText)).getText().toString();
+            // TODO check the domain email
 
-                // TODO check the domain email
-
-                // Checking if they're null
-                if(email.isEmpty() || password.isEmpty() || name.isEmpty() || schoolClass.isEmpty()) {
-                    Snackbar.make(rootView, getString(R.string.formError), Snackbar.LENGTH_LONG).show();
-                } else {
-                    createUser(email, password, name, schoolClass);
-                }
+            // Checking if they're null
+            if(email.isEmpty() || password.isEmpty() || name.isEmpty() || schoolClass.isEmpty()) {
+                Snackbar.make(rootView, getString(R.string.formError), Snackbar.LENGTH_LONG).show();
+            } else {
+                createUser(email, password, name, schoolClass);
             }
         });
 
         // Set the onclick event for the link to the login activity
         TextView loginLink = findViewById(R.id.signupLink);
-        loginLink.setOnClickListener(new TextView.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterUser.this, LoginUser.class));
-                finish();
-            }
+        loginLink.setOnClickListener(v -> {
+            startActivity(new Intent(this, LoginUser.class));
+            finish();
         });
 
     }
@@ -114,24 +105,21 @@ public class RegisterUser extends AppCompatActivity {
     private void createUser(String email, String password, String name, String schoolClass) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                .addOnCompleteListener(this, task -> {
 
-                        // The user creation was successful
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            User newUser = new User(name, email, schoolClass);
+                    // The user creation was successful
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        User newUser = new User(name, email, schoolClass);
 
-                            // Add the remaining data to the db
-                            mDatabase.child("users").child(user.getUid()).setValue(newUser);
+                        // Add the remaining data to the db
+                        mDatabase.child("users").child(user.getUid()).setValue(newUser);
 
-                            sendVerificationMail(user);
-                        } else {
-                            // If sign up fails, display a message to the user.
-                            Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
-                            // TODO validate the password
-                        }
+                        sendVerificationMail(user);
+                    } else {
+                        // If sign up fails, display a message to the user.
+                        Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
+                        // TODO validate the password
                     }
                 });
     }
@@ -139,9 +127,7 @@ public class RegisterUser extends AppCompatActivity {
     // Send the verification email
     private void sendVerificationMail(FirebaseUser user) {
         user.sendEmailVerification()
-                .addOnCompleteListener(activity -> {
-                    Snackbar.make(rootView, activity.isSuccessful() ? getString(R.string.emailInfo) + user.getEmail() :
-                                    getString(R.string.emailError), Snackbar.LENGTH_LONG).show();
-                });
+                .addOnCompleteListener(activity -> Snackbar.make(rootView, activity.isSuccessful() ? getString(R.string.emailInfo) + user.getEmail() :
+                                getString(R.string.emailError), Snackbar.LENGTH_LONG).show());
     }
 }

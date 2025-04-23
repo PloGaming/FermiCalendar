@@ -43,7 +43,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:23.2.0")
     implementation("com.firebaseui:firebase-ui-auth:9.0.0")
     implementation("androidx.credentials:credentials:1.5.0")
-    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-database:21.0.0")
     implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
     testImplementation("junit:junit:4.13.2")
