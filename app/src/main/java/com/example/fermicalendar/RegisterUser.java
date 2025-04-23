@@ -3,9 +3,11 @@ package com.example.fermicalendar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,12 +50,21 @@ public class RegisterUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Closes the keyboard
+                View view = getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
                 // Get the user data from the form
                 String email, password, name, schoolClass;
                 email = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
                 password = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
                 name = ((EditText)findViewById(R.id.nameEditText)).getText().toString();
                 schoolClass = ((EditText)findViewById(R.id.classEditText)).getText().toString();
+
+                // TODO check the domain email
 
                 // Checking if they're null
                 if(email.isEmpty() || password.isEmpty() || name.isEmpty() || schoolClass.isEmpty()) {
@@ -69,7 +80,10 @@ public class RegisterUser extends AppCompatActivity {
         loginLink.setOnClickListener(new TextView.OnClickListener() {
 
             @Override
-            public void onClick(View v) { startActivity(new Intent(RegisterUser.this, LoginUser.class));}
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterUser.this, LoginUser.class));
+                finish();
+            }
         });
 
     }
@@ -87,6 +101,7 @@ public class RegisterUser extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     if (currentUser.isEmailVerified()) {
                         startActivity(new Intent(this, Calendar.class));
+                        finish();
                     }
                 } else {
                     Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
@@ -128,6 +143,5 @@ public class RegisterUser extends AppCompatActivity {
                     Snackbar.make(rootView, activity.isSuccessful() ? getString(R.string.emailInfo) + user.getEmail() :
                                     getString(R.string.emailError), Snackbar.LENGTH_LONG).show();
                 });
-        // TODO add a resend button
     }
 }
