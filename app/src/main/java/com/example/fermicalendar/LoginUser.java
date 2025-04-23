@@ -1,13 +1,9 @@
 package com.example.fermicalendar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,12 +34,7 @@ public class LoginUser extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> {
 
-            // Closes the keyboard
-            View view = getCurrentFocus();
-            if (view != null) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
+            Utility.closeKeyboard(this);
 
             // Get the user data from the form
             String email, password, name, schoolClass;
@@ -59,10 +50,9 @@ public class LoginUser extends AppCompatActivity {
         });
 
         // Set the onclick event for the link to the login activity
-        TextView signupLink = findViewById(R.id.signupLink);
+        TextView signupLink = findViewById(R.id.signinLink);
         signupLink.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterUser.class));
-            finish();
+            Utility.changeActivity(this, RegisterUser.class);
         });
     }
 
@@ -78,8 +68,7 @@ public class LoginUser extends AppCompatActivity {
             currentUser.reload().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     if (currentUser.isEmailVerified()) {
-                        startActivity(new Intent(this, Calendar.class));
-                        finish();
+                        Utility.changeActivity(this, Calendar.class);
                     }
                 } else {
                     Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
@@ -92,17 +81,16 @@ public class LoginUser extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-
                         // Check for email verification
-                        FirebaseUser currentUser = mAuth.getCurrentUser();
-                        if(currentUser != null) {
-                            currentUser.reload().addOnCompleteListener(activity -> {
-                                if (currentUser.isEmailVerified()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if(user != null) {
+                            user.reload().addOnCompleteListener(activity -> {
+                                if (user.isEmailVerified()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    startActivity(new Intent(this, Calendar.class));
-                                    finish();
+                                    Utility.changeActivity(this, Calendar.class);
                                 } else {
-                                    sendVerificationMail(currentUser);
+                                    // Resend verification email
+                                    Utility.sendVerificationMail(this, user, rootView);
                                 }
                             });
                         }
@@ -111,12 +99,5 @@ public class LoginUser extends AppCompatActivity {
                         Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
                     }
                 });
-    }
-
-    // Send the verification email
-    private void sendVerificationMail(FirebaseUser user) {
-        user.sendEmailVerification()
-                .addOnCompleteListener(activity -> Snackbar.make(rootView, activity.isSuccessful() ? getString(R.string.emailInfo) + user.getEmail() :
-                        getString(R.string.emailError), Snackbar.LENGTH_LONG).show());
     }
 }

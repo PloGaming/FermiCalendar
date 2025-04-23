@@ -1,21 +1,15 @@
 package com.example.fermicalendar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -46,12 +40,7 @@ public class RegisterUser extends AppCompatActivity {
         Button registerButton = findViewById(R.id.loginButton);
         registerButton.setOnClickListener(v -> {
 
-            // Closes the keyboard
-            View view = getCurrentFocus();
-            if (view != null) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
+            Utility.closeKeyboard(this);
 
             // Get the user data from the form
             String email, password, name, schoolClass;
@@ -71,34 +60,11 @@ public class RegisterUser extends AppCompatActivity {
         });
 
         // Set the onclick event for the link to the login activity
-        TextView loginLink = findViewById(R.id.signupLink);
+        TextView loginLink = findViewById(R.id.signinLink);
         loginLink.setOnClickListener(v -> {
-            startActivity(new Intent(this, LoginUser.class));
-            finish();
+            Utility.changeActivity(this, LoginUser.class);
         });
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // Check if user is signed in (non-null) and go to calendar activity
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
-            // Reload the user cached info
-            currentUser.reload().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    if (currentUser.isEmailVerified()) {
-                        startActivity(new Intent(this, Calendar.class));
-                        finish();
-                    }
-                } else {
-                    Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
-                }
-            });
-        }
     }
 
     // Create a new user with email and password
@@ -115,19 +81,12 @@ public class RegisterUser extends AppCompatActivity {
                         // Add the remaining data to the db
                         mDatabase.child("users").child(user.getUid()).setValue(newUser);
 
-                        sendVerificationMail(user);
+                        Utility.sendVerificationMail(this, user, rootView);
                     } else {
                         // If sign up fails, display a message to the user.
                         Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
                         // TODO validate the password
                     }
                 });
-    }
-
-    // Send the verification email
-    private void sendVerificationMail(FirebaseUser user) {
-        user.sendEmailVerification()
-                .addOnCompleteListener(activity -> Snackbar.make(rootView, activity.isSuccessful() ? getString(R.string.emailInfo) + user.getEmail() :
-                                getString(R.string.emailError), Snackbar.LENGTH_LONG).show());
     }
 }
