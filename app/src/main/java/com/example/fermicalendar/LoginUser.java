@@ -54,6 +54,7 @@ public class LoginUser extends AppCompatActivity {
         signupLink.setOnClickListener(v -> {
             Utility.changeActivity(this, RegisterUser.class);
         });
+
     }
 
     @Override
