@@ -2,7 +2,6 @@ package com.example.fermicalendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -61,9 +60,7 @@ public class RegisterUser extends AppCompatActivity {
 
         // Set the onclick event for the link to the login activity
         TextView loginLink = findViewById(R.id.signinLink);
-        loginLink.setOnClickListener(v -> {
-            Utility.changeActivity(this, LoginUser.class);
-        });
+        loginLink.setOnClickListener(v -> Utility.changeActivity(this, LoginUser.class));
 
     }
 

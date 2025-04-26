@@ -37,7 +37,7 @@ public class LoginUser extends AppCompatActivity {
             Utility.closeKeyboard(this);
 
             // Get the user data from the form
-            String email, password, name, schoolClass;
+            String email, password;
             email = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
             password = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
 
@@ -51,10 +51,7 @@ public class LoginUser extends AppCompatActivity {
 
         // Set the onclick event for the link to the login activity
         TextView signupLink = findViewById(R.id.signinLink);
-        signupLink.setOnClickListener(v -> {
-            Utility.changeActivity(this, RegisterUser.class);
-        });
-
+        signupLink.setOnClickListener(v -> Utility.changeActivity(this, RegisterUser.class));
     }
 
     @Override
