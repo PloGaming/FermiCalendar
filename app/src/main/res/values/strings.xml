@@ -18,5 +18,5 @@
     <string name="emailError">Failed to send verification email.</string>
     <string name="emailInfo">Verification email sent to: </string>
 
-    <string name="firebase_db_url" translatable="false">https://fermicalendar-5253f-default-rtdb.europe-west1.firebasedatabase.app/</string>
+    <string name="serverURL" translatable="false">https://endpoint-fyi7.onrender.com</string>
 </resources>

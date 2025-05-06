@@ -1,5 +1,6 @@
 package com.example.fermicalendar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,16 +9,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class RegisterUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
     private View rootView;
 
     @Override
@@ -30,7 +45,6 @@ public class RegisterUser extends AppCompatActivity {
 
         // Obtain the 2 objects for interacting with Firebase auth and database services
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance(getString(R.string.firebase_db_url)).getReference();
 
         // Localize the email language
         mAuth.useAppLanguage();
@@ -73,10 +87,9 @@ public class RegisterUser extends AppCompatActivity {
                     // The user creation was successful
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        User newUser = new User(name, email, schoolClass);
+                        User userInfo = new User(name, schoolClass);
 
-                        // Add the remaining data to the db
-                        mDatabase.child("users").child(user.getUid()).setValue(newUser);
+                        addUserInfoDB(user, userInfo);
 
                         Utility.sendVerificationMail(this, user, rootView);
                     } else {
@@ -85,5 +98,33 @@ public class RegisterUser extends AppCompatActivity {
                         // TODO validate the password
                     }
                 });
+    }
+
+    private void addUserInfoDB(FirebaseUser user, User userInfo) {
+        // Get the user token
+        user.getIdToken(true).addOnCompleteListener(task -> {
+            if(task.isSuccessful())  {
+                OkHttpClient client = new OkHttpClient();
+                Request req = new Request.Builder()
+                        .url(HttpUrl.parse(R.string.serverURL + "/users"))
+                        .addHeader("Authorization", "Bearer " + task.getResult().getToken())
+                        .post(RequestBody.create(new Gson().toJson(userInfo), MediaType.parse("application/json; charset=utf-8")))
+                        .build();
+
+                client.newCall(req).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        // TODO nothing
+                    }
+                });
+            } else {
+                Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 }
