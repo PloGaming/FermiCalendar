@@ -106,7 +106,7 @@ public class RegisterUser extends AppCompatActivity {
             if(task.isSuccessful())  {
                 OkHttpClient client = new OkHttpClient();
                 Request req = new Request.Builder()
-                        .url(HttpUrl.parse(R.string.serverURL + "/users"))
+                        .url(getString(R.string.serverURL) + "/users")
                         .addHeader("Authorization", "Bearer " + task.getResult().getToken())
                         .post(RequestBody.create(new Gson().toJson(userInfo), MediaType.parse("application/json; charset=utf-8")))
                         .build();
