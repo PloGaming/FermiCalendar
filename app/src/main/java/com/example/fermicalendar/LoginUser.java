@@ -33,7 +33,6 @@ public class LoginUser extends AppCompatActivity {
         // Set the onclick event to the login button
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> {
-
             Utility.closeKeyboard(this);
 
             // Get the user data from the form
@@ -60,8 +59,7 @@ public class LoginUser extends AppCompatActivity {
 
         // Check if user is signed in (non-null) and go to calendar activity
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
+        if(currentUser != null) {
             // Reload the user cached info
             currentUser.reload().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -93,7 +91,7 @@ public class LoginUser extends AppCompatActivity {
                             });
                         }
                     } else {
-                        // If sign in fails, display a message to the user.
+                        // If sign in fails, displ  ay a message to the user.
                         Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
                     }
                 });
