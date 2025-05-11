@@ -5,11 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Locale;
 
+// This adapter simply binds the Event objects to the RecuclerView so they can be
+// displayed in a scrollable list
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     private final List<Event> events;
 
@@ -17,6 +21,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         this.events = events;
     }
 
+    // This class represents one element in the list
     static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView title, time;
 
@@ -27,6 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         }
     }
 
+    @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -36,12 +42,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
+        // Set the summary of the event
         Event event = events.get(position);
         holder.title.setText(event.summary);
+
+        // Set the dates of the event
         ZonedDateTime start = ZonedDateTime.parse(event.start.dateTime);
         ZonedDateTime end = ZonedDateTime.parse(event.end.dateTime);
-        holder.time.setText(String.format("%02d", start.getHour())  + ":" + String.format("%02d", start.getMinute()) + " - " +
-                            String.format("%02d", end.getHour())  + ":" + String.format("%02d", end.getMinute()));
+        holder.time.setText(String.format(Locale.ITALY,
+                "%02d:%02d - %02d:%02d", start.getHour(), start.getMinute(), end.getHour(), end.getMinute()));
     }
 
     @Override

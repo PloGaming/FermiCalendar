@@ -13,6 +13,7 @@
     <string name="signIn_prompt">Already have an Account?</string>
     <string name="signUp_prompt">Don\'t have an Account?</string>
 
+    <string name="calendarError">Failed to retrieve events</string>
     <string name="formError">Complete the form!</string>
     <string name="authError">Authentication error!</string>
     <string name="emailError">Failed to send verification email.</string>

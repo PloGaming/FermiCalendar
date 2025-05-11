@@ -12,4 +12,5 @@
     <string name="emailError">Errore nell\'inviare l\'email di verifica</string>
     <string name="emailInfo">Email di verifica inviata a:</string>
     <string name="more">altro</string>
+    <string name="calendarError">Impossibile ottenere gli eventi</string>
 </resources>
