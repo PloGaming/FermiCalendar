@@ -11,4 +11,5 @@
     <string name="signUp_prompt">Non hai un\'Account?</string>
     <string name="emailError">Errore nell\'inviare l\'email di verifica</string>
     <string name="emailInfo">Email di verifica inviata a:</string>
+    <string name="more">altro</string>
 </resources>

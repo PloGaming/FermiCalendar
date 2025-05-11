@@ -2,6 +2,8 @@ package com.example.fermicalendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -29,18 +31,24 @@ import okhttp3.Response;
 
 public class Calendar extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
     private Gson gson;
+
+    List<Event> events = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        recyclerView = findViewById(R.id.eventList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(Calendar.this));
+
         mAuth = FirebaseAuth.getInstance();
         gson = new Gson();
 
-        getEvents(ZonedDateTime.now().plusDays(1), ZonedDateTime.now().plusDays(2).withHour(0).withMinute(0).withSecond(0));
+        showEvents(ZonedDateTime.now().plusDays(1), ZonedDateTime.now().plusDays(3).withHour(0).withMinute(0));
     }
 
     @Override
@@ -48,7 +56,7 @@ public class Calendar extends AppCompatActivity {
         super.onStart();
     }
 
-    protected void getEvents(ZonedDateTime startDate, ZonedDateTime endDate) {
+    protected void showEvents(ZonedDateTime startDate, ZonedDateTime endDate) {
         OkHttpClient client = new OkHttpClient();
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
@@ -78,11 +86,12 @@ public class Calendar extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    List<Event> events = gson.fromJson(response.body().string(), CalendarResponse.class).items;
-                    for(int i = 0; i < events.size(); i++) {
-                        Log.d("Event", events.get(i).summary);
-                    }
+                    events  = gson.fromJson(response.body().string(), CalendarResponse.class).items;
 
+                    Log.d("events", Integer.toString(events.size()));
+                    runOnUiThread(() -> {
+                        recyclerView.setAdapter(new EventAdapter(events));
+                    });
                 } else {
                     Log.e("HTTP_ERROR", "Code: " + response.code() + ", Message: " + response.message());
                 }

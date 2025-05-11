@@ -45,5 +45,6 @@
         <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow</item>
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
+        <item name="android:statusBarColor">@color/md_theme_background</item>
     </style>
 </resources>

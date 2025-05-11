@@ -28,7 +28,7 @@ public class Utility {
     // Changes the activity
     public static <T> void changeActivity(AppCompatActivity startingActivity, Class<T> targetActivity) {
         startingActivity.startActivity(new Intent(startingActivity, targetActivity));
-        //startingActivity.finish(); // Makes impossible to go back for the user
+        startingActivity.finish(); // Makes impossible to go back for the user
     }
 
     // Send the verification email

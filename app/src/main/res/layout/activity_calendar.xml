@@ -4,4 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Calendar"/>
+    android:fitsSystemWindows="true"
+    tools:context=".Calendar">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#211f24"
+        android:theme="@style/Theme.FermiCalendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/md_theme_onPrimaryContainer"
+            android:foregroundTint="@color/md_theme_onPrimaryContainer"
+            android:minHeight="?attr/actionBarSize"
+            android:textAlignment="center"
+            android:theme="@style/Theme.FermiCalendar"
+            app:menu="@menu/top_app_bar"
+            app:navigationIconTint="@color/md_theme_onPrimaryContainer"
+            app:subtitleTextColor="@color/md_theme_onPrimaryContainer"
+            app:title="@string/fermi_calendar"
+            app:titleCentered="true"
+            app:titleTextColor="@color/md_theme_onPrimaryContainer" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
