@@ -13,4 +13,6 @@
     <string name="emailInfo">Email di verifica inviata a:</string>
     <string name="more">altro</string>
     <string name="calendarError">Impossibile ottenere gli eventi</string>
+    <string name="fermi_calendar">Variazioni orarie</string>
+    <string name="select_date">Seleziona la data</string>
 </resources>

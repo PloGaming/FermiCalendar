@@ -23,6 +23,6 @@
     <string name="serverURL" translatable="false">https://endpoint-fyi7.onrender.com</string>
     <string name="fermiCalendarID" translatable="false">isfermimantova@gmail.com</string>
     <string name="googleCalendarApiKey" translatable="false">AIzaSyDOtGM5jr8bNp1utVpG2_gSRH03RNGBkI8</string>
-    <string name="fermi_calendar" translatable="false">Fermi Calendar</string>
+    <string name="fermi_calendar" >Daily variations</string>
     <string name="select_date">Select date</string>
 </resources>
