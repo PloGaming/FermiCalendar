@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -54,14 +57,35 @@ public class Calendar extends AppCompatActivity {
 
         // Set the rootView
         rootView = findViewById(R.id.rootView);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        // Create the DatePicker
+        TextInputEditText dateEditText = findViewById(R.id.dateEditText);
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .build();
+
+        // Set the onclick method for the datepicker
+        dateEditText.setOnClickListener(v -> datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER"));
+
+        // Set the callback for when the user presses ok in the calendar dialog
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            dateEditText.setText(datePicker.getHeaderText()); // formats selected date
+
+            // Checks if selection is not null
+            if(datePicker.getSelection() != null) {
+                Instant instant = Instant.ofEpochMilli(datePicker.getSelection());
+
+                // Convert to ZonedDateTime using system's default time zone
+                ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+
+                // Show the events of that day
+                showEvents(zonedDateTime, zonedDateTime.plusDays(1).withHour(0).withMinute(0));
+            }
+        });
 
         // At the start show the events of today
-        showEvents(ZonedDateTime.now().plusDays(1), ZonedDateTime.now().plusDays(3).withHour(0).withMinute(0));
+        showEvents(ZonedDateTime.now().withHour(0).withMinute(0),
+                ZonedDateTime.now().plusDays(1).withHour(0).withMinute(0));
     }
 
     protected void showEvents(ZonedDateTime startDate, ZonedDateTime endDate) {

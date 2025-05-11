@@ -24,4 +24,5 @@
     <string name="fermiCalendarID" translatable="false">isfermimantova@gmail.com</string>
     <string name="googleCalendarApiKey" translatable="false">AIzaSyDOtGM5jr8bNp1utVpG2_gSRH03RNGBkI8</string>
     <string name="fermi_calendar" translatable="false">Fermi Calendar</string>
+    <string name="select_date">Select date</string>
 </resources>
