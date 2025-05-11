@@ -96,6 +96,12 @@ public class Calendar extends AppCompatActivity {
 
         // Set up the swipe-to-refresh listener
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.md_theme_background);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.md_theme_primaryContainer,
+                R.color.md_theme_primaryContainer,
+                R.color.md_theme_primaryContainer
+        );
         swipeRefreshLayout.setOnRefreshListener(() -> {
             // This method is called when the user pulls down to refresh
             changeDay(selectedDay);
