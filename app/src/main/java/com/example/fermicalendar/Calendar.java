@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -29,6 +30,7 @@ import okhttp3.Response;
 public class Calendar extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,9 @@ public class Calendar extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         mAuth = FirebaseAuth.getInstance();
+        gson = new Gson();
 
-        getEvents(ZonedDateTime.of(2025, 5, 10, 0, 0, 0, 0, ZoneId.systemDefault()),
-                ZonedDateTime.of(2025, 5, 11, 0, 0, 0, 0, ZoneId.systemDefault()));
+        getEvents(ZonedDateTime.now().plusDays(1), ZonedDateTime.now().plusDays(2).withHour(0).withMinute(0).withSecond(0));
     }
 
     @Override
@@ -76,7 +78,11 @@ public class Calendar extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    Log.d("HTTP_RESPONSE", response.body().string());
+                    List<Event> events = gson.fromJson(response.body().string(), CalendarResponse.class).items;
+                    for(int i = 0; i < events.size(); i++) {
+                        Log.d("Event", events.get(i).summary);
+                    }
+
                 } else {
                     Log.e("HTTP_ERROR", "Code: " + response.code() + ", Message: " + response.message());
                 }
