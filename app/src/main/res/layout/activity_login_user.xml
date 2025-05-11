@@ -11,12 +11,12 @@
     android:id="@+id/rootView">
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerButton"
         android:layout_width="328dp"
-        android:layout_height="45dp"
+        android:layout_height="56dp"
         android:layout_marginTop="13dp"
         android:text="@string/login_prompt"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/passwordTextInput"
         app:layout_constraintStart_toStartOf="@+id/passwordTextInput"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextInput" />
@@ -104,7 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
     <TextView
         android:id="@+id/textView"

@@ -44,7 +44,7 @@ public class RegisterUser extends AppCompatActivity {
         mAuth.useAppLanguage();
 
         // Set the onclick event to the register button
-        Button registerButton = findViewById(R.id.loginButton);
+        Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(v -> {
 
             Utility.closeKeyboard(this);

@@ -31,7 +31,7 @@ public class LoginUser extends AppCompatActivity {
         mAuth.useAppLanguage();
 
         // Set the onclick event to the login button
-        Button loginButton = findViewById(R.id.loginButton);
+        Button loginButton = findViewById(R.id.registerButton);
         loginButton.setOnClickListener(v -> {
             Utility.closeKeyboard(this);
 

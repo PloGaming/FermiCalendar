@@ -38,7 +38,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dateInputLayout"
         android:layout_width="218dp"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColorHint="@color/md_theme_onSecondary"
         app:counterTextColor="@color/md_theme_onSecondary"
