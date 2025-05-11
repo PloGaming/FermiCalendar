@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,6 +40,8 @@ public class Calendar extends AppCompatActivity {
     private Gson gson;
     private OkHttpClient client;
     private View rootView;
+    private ZonedDateTime selectedDay;
+    private TextInputEditText dateEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class Calendar extends AppCompatActivity {
         rootView = findViewById(R.id.rootView);
 
         // Create the DatePicker
-        TextInputEditText dateEditText = findViewById(R.id.dateEditText);
+        dateEditText  = findViewById(R.id.dateEditText);
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
                 .build();
@@ -69,23 +72,43 @@ public class Calendar extends AppCompatActivity {
 
         // Set the callback for when the user presses ok in the calendar dialog
         datePicker.addOnPositiveButtonClickListener(selection -> {
-            dateEditText.setText(datePicker.getHeaderText()); // formats selected date
-
             // Checks if selection is not null
             if(datePicker.getSelection() != null) {
                 Instant instant = Instant.ofEpochMilli(datePicker.getSelection());
 
                 // Convert to ZonedDateTime using system's default time zone
                 ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
-
-                // Show the events of that day
-                showEvents(zonedDateTime, zonedDateTime.plusDays(1).withHour(0).withMinute(0));
+                changeDay(zonedDateTime);
             }
         });
 
-        // At the start show the events of today
-        showEvents(ZonedDateTime.now().withHour(0).withMinute(0),
-                ZonedDateTime.now().plusDays(1).withHour(0).withMinute(0));
+        // Set the onclick method for the 2 arrows (back and forward)
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            changeDay(selectedDay.minusDays(1));
+        });
+
+        Button forwardButton = findViewById(R.id.forwardButton);
+        forwardButton.setOnClickListener(v -> {
+            changeDay(selectedDay.plusDays(1));
+        });
+
+        // Show today's events
+        changeDay(ZonedDateTime.now());
+    }
+
+    protected void changeDay(ZonedDateTime newDay) {
+        if(newDay == null)
+            return;
+
+        // Sets it as the current selected day
+        selectedDay = newDay.withHour(0).withMinute(0).withSecond(0);
+
+        // formats selected date
+        dateEditText.setText(selectedDay.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+        // Finally shows it
+        showEvents(selectedDay, selectedDay.plusDays(1).withHour(0).withMinute(0));
     }
 
     protected void showEvents(ZonedDateTime startDate, ZonedDateTime endDate) {

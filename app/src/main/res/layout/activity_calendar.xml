@@ -9,19 +9,43 @@
     android:fitsSystemWindows="true"
     tools:context=".Calendar">
 
+    <Button
+        android:id="@+id/backButton"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        app:icon="@drawable/baseline_arrow_back_ios_new_24"
+        app:iconSize="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/dateInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <Button
+        android:id="@+id/forwardButton"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:textAlignment="viewEnd"
+        app:icon="@drawable/baseline_arrow_forward_ios_24"
+        app:iconSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dateInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="218dp"
+        android:layout_height="58dp"
+        android:textAlignment="center"
         android:textColorHint="@color/md_theme_onSecondary"
         app:counterTextColor="@color/md_theme_onSecondary"
         app:endIconTint="@color/md_theme_onSecondary"
         app:helperTextTextColor="@color/md_theme_onSecondary"
         app:hintTextColor="@color/md_theme_onSecondary"
-        app:layout_constraintBottom_toTopOf="@+id/eventList"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/forwardButton"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:placeholderTextColor="@color/md_theme_onSecondary"
         app:startIconTint="@color/md_theme_onSecondary"
@@ -33,7 +57,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="false"
+            android:gravity="center"
             android:hint="@string/select_date"
+            android:textAlignment="center"
             android:textColor="@color/md_theme_onSecondary"
             android:textColorHint="@color/md_theme_onSecondary"
             tools:layout_editor_absoluteX="40dp"
@@ -72,9 +98,10 @@
         android:id="@+id/eventList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
