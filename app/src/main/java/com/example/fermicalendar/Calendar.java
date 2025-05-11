@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -91,6 +92,16 @@ public class Calendar extends AppCompatActivity {
         Button forwardButton = findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(v -> {
             changeDay(selectedDay.plusDays(1));
+        });
+
+        // Set up the swipe-to-refresh listener
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // This method is called when the user pulls down to refresh
+            changeDay(selectedDay);
+
+            // After fetching is complete, turn off the loading indicator
+            swipeRefreshLayout.setRefreshing(false);
         });
 
         // Show today's events
