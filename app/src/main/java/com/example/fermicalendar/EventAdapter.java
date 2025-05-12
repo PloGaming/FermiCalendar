@@ -47,10 +47,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.title.setText(event.summary);
 
         // Set the dates of the event
-        ZonedDateTime start = ZonedDateTime.parse(event.start.dateTime);
-        ZonedDateTime end = ZonedDateTime.parse(event.end.dateTime);
-        holder.time.setText(String.format(Locale.ITALY,
-                "%02d:%02d - %02d:%02d", start.getHour(), start.getMinute(), end.getHour(), end.getMinute()));
+        if(event.start.dateTime != null && event.end.dateTime != null)
+        {
+            ZonedDateTime start = ZonedDateTime.parse(event.start.dateTime);
+            ZonedDateTime end = ZonedDateTime.parse(event.end.dateTime);
+            holder.time.setText(String.format(Locale.ITALY,
+                    "%02d:%02d - %02d:%02d", start.getHour(), start.getMinute(), end.getHour(), end.getMinute()));
+        }
     }
 
     @Override

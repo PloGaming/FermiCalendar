@@ -15,4 +15,5 @@
     <string name="calendarError">Impossibile ottenere gli eventi</string>
     <string name="fermi_calendar">Variazioni orarie</string>
     <string name="select_date">Seleziona la data</string>
+    <string name="search">Cerca</string>
 </resources>

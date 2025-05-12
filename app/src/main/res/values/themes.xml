@@ -1,4 +1,5 @@
-<resources>
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="Theme.FermiCalendar" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>

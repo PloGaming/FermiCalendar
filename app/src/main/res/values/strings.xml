@@ -25,4 +25,6 @@
     <string name="googleCalendarApiKey" translatable="false">AIzaSyDOtGM5jr8bNp1utVpG2_gSRH03RNGBkI8</string>
     <string name="fermi_calendar" >Daily variations</string>
     <string name="select_date">Select date</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="search">Search</string>
 </resources>
