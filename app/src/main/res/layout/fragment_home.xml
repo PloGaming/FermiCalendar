@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <Button
+        android:id="@+id/backButton"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        app:icon="@drawable/baseline_arrow_back_ios_new_24"
+        app:iconSize="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/dateInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/forwardButton"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:textAlignment="viewEnd"
+        app:icon="@drawable/baseline_arrow_forward_ios_24"
+        app:iconGravity="end"
+        app:iconSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateInputLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dateInputLayout"
+        android:layout_width="218dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColorHint="@color/md_theme_onSecondary"
+        app:counterTextColor="@color/md_theme_onSecondary"
+        app:endIconTint="@color/md_theme_onSecondary"
+        app:helperTextTextColor="@color/md_theme_onSecondary"
+        app:hintTextColor="@color/md_theme_onSecondary"
+        app:layout_constraintEnd_toStartOf="@+id/forwardButton"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderTextColor="@color/md_theme_onSecondary"
+        app:startIconTint="@color/md_theme_onSecondary"
+        app:suffixTextColor="@color/md_theme_onSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dateEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/select_date"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_onSecondary"
+            android:textColorHint="@color/md_theme_onSecondary"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="5dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateInputLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

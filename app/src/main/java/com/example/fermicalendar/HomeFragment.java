@@ -1,42 +1,36 @@
 package com.example.fermicalendar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Calendar extends AppCompatActivity {
+public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Gson gson;
@@ -45,14 +39,17 @@ public class Calendar extends AppCompatActivity {
     private ZonedDateTime selectedDay;
     private TextInputEditText dateEditText;
 
+    public HomeFragment() {
+        super(R.layout.fragment_home);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)  {
+        super.onViewCreated(view, savedInstanceState);
 
         // Initialize the event list
-        recyclerView = findViewById(R.id.eventList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(Calendar.this));
+        recyclerView = view.findViewById(R.id.eventList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         // Initialize the library for interpreting JSON
         gson = new Gson();
@@ -61,16 +58,16 @@ public class Calendar extends AppCompatActivity {
         client = new OkHttpClient();
 
         // Set the rootView
-        rootView = findViewById(R.id.rootView);
+        rootView = view.findViewById(R.id.rootView);
 
         // Create the DatePicker
-        dateEditText  = findViewById(R.id.dateEditText);
+        dateEditText  = view.findViewById(R.id.dateEditText);
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
                 .build();
 
         // Set the onclick method for the datepicker
-        dateEditText.setOnClickListener(v -> datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER"));
+        dateEditText.setOnClickListener(v -> datePicker.show(requireActivity().getSupportFragmentManager(), "MATERIAL_DATE_PICKER"));
 
         // Set the callback for when the user presses ok in the calendar dialog
         datePicker.addOnPositiveButtonClickListener(selection -> {
@@ -85,18 +82,18 @@ public class Calendar extends AppCompatActivity {
         });
 
         // Set the onclick method for the 2 arrows (back and forward)
-        Button backButton = findViewById(R.id.backButton);
+        Button backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
             changeDay(selectedDay.minusDays(1));
         });
 
-        Button forwardButton = findViewById(R.id.forwardButton);
+        Button forwardButton = view.findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(v -> {
             changeDay(selectedDay.plusDays(1));
         });
 
         // Set up the swipe-to-refresh listener
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.md_theme_background);
         swipeRefreshLayout.setColorSchemeResources(
                 R.color.md_theme_primaryContainer,
@@ -164,7 +161,7 @@ public class Calendar extends AppCompatActivity {
 
                     // Because onResponse runs on a different thread than the UI one
                     // and the recyclerView can only be modified on the main thread
-                    runOnUiThread(() -> {
+                    requireActivity().runOnUiThread(() -> {
                         recyclerView.setAdapter(new EventAdapter(events));
                     });
                 } else {

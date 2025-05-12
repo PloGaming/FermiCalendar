@@ -64,7 +64,7 @@ public class LoginUser extends AppCompatActivity {
             currentUser.reload().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     if (currentUser.isEmailVerified()) {
-                        Utility.changeActivity(this, Calendar.class);
+                        Utility.changeActivity(this, CalendarActivity.class);
                     }
                 } else {
                     Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
@@ -83,7 +83,7 @@ public class LoginUser extends AppCompatActivity {
                             user.reload().addOnCompleteListener(activity -> {
                                 if (user.isEmailVerified()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Utility.changeActivity(this, Calendar.class);
+                                    Utility.changeActivity(this, CalendarActivity.class);
                                 } else {
                                     // Resend verification email
                                     Utility.sendVerificationMail(this, user, rootView);
