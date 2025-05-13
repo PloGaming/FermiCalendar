@@ -23,7 +23,7 @@ public class CalendarActivity extends AppCompatActivity {
             if(item.getItemId() == R.id.nav_home) {
                 selectedFragment = new HomeFragment();
             } else if(item.getItemId() == R.id.nav_search) {
-                // selectedFragment = new HomeFragment();
+                selectedFragment = new SearchFragment();
             }
 
             // Execute the exchange

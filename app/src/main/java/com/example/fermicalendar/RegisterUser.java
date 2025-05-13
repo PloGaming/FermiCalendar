@@ -35,7 +35,7 @@ public class RegisterUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
 
         // Set the rootView for the snack-bars
-        rootView = findViewById(R.id.rootView);
+        rootView = findViewById(R.id.rootHome);
 
         // Obtain the 2 objects for interacting with Firebase auth and database services
         mAuth = FirebaseAuth.getInstance();

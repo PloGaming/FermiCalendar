@@ -22,7 +22,7 @@ public class LoginUser extends AppCompatActivity {
         setContentView(R.layout.activity_login_user);
 
         // Set the rootView for the snack-bars
-        rootView = findViewById(R.id.rootView);
+        rootView = findViewById(R.id.rootHome);
 
         // Obtain the object for interacting with Firebase auth
         mAuth = FirebaseAuth.getInstance();

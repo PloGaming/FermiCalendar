@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
         client = new OkHttpClient();
 
         // Set the rootView
-        rootView = view.findViewById(R.id.rootView);
+        rootView = view.findViewById(R.id.rootHome);
 
         // Create the DatePicker
         dateEditText  = view.findViewById(R.id.dateEditText);

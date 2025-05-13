@@ -16,4 +16,5 @@
     <string name="fermi_calendar">Variazioni orarie</string>
     <string name="select_date">Seleziona la data</string>
     <string name="search">Cerca</string>
+    <string name="search_text">Cerca testo</string>
 </resources>
