@@ -29,4 +29,5 @@
     <string name="search">Search</string>
     <string name="search_text">Search text</string>
     <string name="no_events">No events found</string>
+    <string name="class_string">Class</string>
 </resources>

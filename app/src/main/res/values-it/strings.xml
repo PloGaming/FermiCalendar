@@ -18,4 +18,5 @@
     <string name="search">Cerca</string>
     <string name="search_text">Cerca testo</string>
     <string name="no_events">Nessun evento trovato</string>
+    <string name="class_string">Classi</string>
 </resources>

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class SearchFragment extends Fragment {
     private Gson gson;
     private OkHttpClient client;
     private View rootView;
-    private TextInputEditText searchText;
+    private MaterialAutoCompleteTextView classDropdown;
 
     public SearchFragment() { super(R.layout.fragment_search); }
 
@@ -54,6 +54,46 @@ public class SearchFragment extends Fragment {
 
         // Set the rootView
         rootView = view.findViewById(R.id.rootSearch);
+
+        // Set the dropdown
+        classDropdown = view.findViewById(R.id.classDropDown);
+
+        // Build the url
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme("https")
+                .host(getString(R.string.serverURL).replace("https://", ""))
+                .addPathSegment("classes")
+                .build();
+
+        // Request the classes
+        Request req = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        client.newCall(req).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                // If the response code is between 200 and 300
+                if (response.isSuccessful()) {
+                    // Get the list of classes
+                    List<String> classes  = gson.fromJson(response.body().string(), Classes.class).classes;
+
+                    // Because onResponse runs on a different thread than the UI one
+                    // and the recyclerView can only be modified on the main thread
+                    requireActivity().runOnUiThread(() -> {
+                        classDropdown.setSimpleItems(classes.toArray(new String[0]));
+                    });
+                } else {
+                    Snackbar.make(rootView, getString(R.string.calendarError), Snackbar.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Snackbar.make(rootView, getString(R.string.calendarError), Snackbar.LENGTH_LONG).show();
+            }
+        });
 
         // Set the onclick method on the button
         Button searchButton = view.findViewById(R.id.searchButton);
@@ -115,7 +155,8 @@ public class SearchFragment extends Fragment {
 
                     // Filter the events out
                     for(int i = 0; i < events.size(); i++) {
-                        if(!events.get(i).summary.toLowerCase().contains(searchTerm.toLowerCase())) {
+                        if(!events.get(i).summary.toLowerCase().contains(searchTerm.toLowerCase()) ||
+                            !events.get(i).summary.toLowerCase().contains((classDropdown.getText().toString().replace(" ", "") + " ").toLowerCase())) {
                             events.remove(i);
                             i--;
                         }

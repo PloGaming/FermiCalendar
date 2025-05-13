@@ -6,11 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:hint="@string/class_string"
+        android:textColorHint="@color/md_theme_onSecondary"
+        app:layout_constraintEnd_toStartOf="@+id/searchText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/classDropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/md_theme_primary"
+            android:inputType="none"
+            android:shadowColor="@color/md_theme_onSecondary"
+            android:textColor="@color/md_theme_onSecondary"
+            android:textColorHint="@color/md_theme_onSecondary"
+            android:textColorLink="@color/md_theme_onSecondary"
+            app:dropDownBackgroundTint="@color/md_theme_primary"
+            app:simpleItemSelectedRippleColor="@color/md_theme_onSecondary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/searchButton"
         style="?attr/materialIconButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="3dp"
         android:textAlignment="viewEnd"
         app:icon="@drawable/baseline_search_24"
@@ -23,7 +52,7 @@
         android:id="@+id/searchText"
         android:layout_width="0dp"
         android:layout_height="61dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="70dp"
         android:textAlignment="center"
         android:textColorHint="@color/md_theme_onSecondary"
@@ -32,7 +61,7 @@
         app:helperTextTextColor="@color/md_theme_onSecondary"
         app:hintTextColor="@color/md_theme_onSecondary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:placeholderTextColor="@color/md_theme_onSecondary"
         app:startIconTint="@color/md_theme_onSecondary"
@@ -42,8 +71,8 @@
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:hint="@string/search_text"
+            android:inputType="text"
             android:textAlignment="textStart"
             android:textColor="@color/md_theme_onSecondary"
             android:textColorHint="@color/md_theme_onSecondary"
