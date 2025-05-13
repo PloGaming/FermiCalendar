@@ -91,7 +91,7 @@ public class LoginUser extends AppCompatActivity {
                             });
                         }
                     } else {
-                        // If sign in fails, displ  ay a message to the user.
+                        // If sign in fails, display a message to the user.
                         Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();
                     }
                 });
