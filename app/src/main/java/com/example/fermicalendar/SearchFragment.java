@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -60,6 +61,23 @@ public class SearchFragment extends Fragment {
             EditText searchText = view.findViewById(R.id.searchEditText);
             searchEvents(searchText.getText().toString());
         });
+
+        // Set up the swipe-to-refresh listener
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.md_theme_background);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.md_theme_primaryContainer,
+                R.color.md_theme_primaryContainer,
+                R.color.md_theme_primaryContainer
+        );
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // This method is called when the user pulls down to refresh
+            EditText searchText = view.findViewById(R.id.searchEditText);
+            searchEvents(searchText.getText().toString());
+
+            // After fetching is complete, turn off the loading indicator
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
     protected void searchEvents(String searchTerm) {
@@ -106,7 +124,12 @@ public class SearchFragment extends Fragment {
                     // Because onResponse runs on a different thread than the UI one
                     // and the recyclerView can only be modified on the main thread
                     requireActivity().runOnUiThread(() -> {
-                        recyclerView.setAdapter(new EventAdapter(events));
+                        // Check to see if events is empty
+                        if(events.size() == 0) {
+                            Snackbar.make(rootView, getString(R.string.no_events), Snackbar.LENGTH_LONG).show();
+                        } else {
+                            recyclerView.setAdapter(new EventAdapter(events));
+                        }
                     });
                 } else {
                     Snackbar.make(rootView, getString(R.string.calendarError), Snackbar.LENGTH_LONG).show();
