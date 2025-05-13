@@ -39,9 +39,7 @@ public class HomeFragment extends Fragment {
     private ZonedDateTime selectedDay;
     private TextInputEditText dateEditText;
 
-    public HomeFragment() {
-        super(R.layout.fragment_home);
-    }
+    public HomeFragment() { super(R.layout.fragment_home); }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)  {
