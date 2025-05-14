@@ -52,7 +52,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             ZonedDateTime start = ZonedDateTime.parse(event.start.dateTime);
             ZonedDateTime end = ZonedDateTime.parse(event.end.dateTime);
             holder.time.setText(String.format(Locale.ITALY,
-                    "%02d:%02d - %02d:%02d", start.getHour(), start.getMinute(), end.getHour(), end.getMinute()));
+                    "%02d:%02d - %02d:%02d  %02d %s %02d", start.getHour(), start.getMinute(), end.getHour(), end.getMinute(),
+                    start.getDayOfMonth(), start.getMonth(), start.getYear()));
         }
     }
 
