@@ -2,8 +2,28 @@ package com.example.fermicalendar;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.List;
+
+class TimeInfo {
+    String dateTime;
+}
+
+class Event {
+    String summary;
+    TimeInfo start;
+    TimeInfo end;
+}
+
+class CalendarResponse {
+    List<Event> items;
+}
+
+class Classes {
+    List<String> classes;
+}
+
 @IgnoreExtraProperties
-public class User {
+class User {
 
     public String name, schoolClass;
 

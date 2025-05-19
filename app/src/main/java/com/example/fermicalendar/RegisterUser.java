@@ -1,13 +1,13 @@
 package com.example.fermicalendar;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -56,12 +57,15 @@ public class RegisterUser extends AppCompatActivity {
             name = ((EditText)findViewById(R.id.nameEditText)).getText().toString();
             schoolClass = ((EditText)findViewById(R.id.classEditText)).getText().toString();
 
-            // TODO check the domain email
-
             // Checking if they're null
             if(email.isEmpty() || password.isEmpty() || name.isEmpty() || schoolClass.isEmpty()) {
                 Snackbar.make(rootView, getString(R.string.formError), Snackbar.LENGTH_LONG).show();
-            } else {
+            }
+            // Checking the domain
+            else if (!Objects.equals(email.split("@")[1], getString(R.string.fermiDomain))){
+                Snackbar.make(rootView, getString(R.string.emailDomainError), Snackbar.LENGTH_LONG).show();
+            }
+            else {
                 createUser(email, password, name, schoolClass);
             }
         });
@@ -69,7 +73,6 @@ public class RegisterUser extends AppCompatActivity {
         // Set the onclick event for the link to the login activity
         TextView loginLink = findViewById(R.id.signinLink);
         loginLink.setOnClickListener(v -> Utility.changeActivity(this, LoginUser.class));
-
     }
 
     // Create a new user with email and password
@@ -112,7 +115,7 @@ public class RegisterUser extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {}
+                    public void onResponse(@NonNull Call call, @NonNull Response response) {}
                 });
             } else {
                 Snackbar.make(rootView, getString(R.string.authError), Snackbar.LENGTH_LONG).show();

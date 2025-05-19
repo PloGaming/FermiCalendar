@@ -77,7 +77,8 @@
             android:textColor="@color/md_theme_onSecondary"
             android:textColorHint="@color/md_theme_onSecondary"
             tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="5dp" />
+            tools:layout_editor_absoluteY="5dp"
+            android:imeOptions="actionSearch"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

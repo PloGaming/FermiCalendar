@@ -16,10 +16,11 @@
     <string name="calendarError">Failed to retrieve events</string>
     <string name="formError">Complete the form!</string>
     <string name="authError">Authentication error!</string>
-    <string name="emailError">Failed to send verification email.</string>
-    <string name="emailInfo">Verification email sent to: </string>
-    <string name="more">more</string>
+    <string name="emailError">Failed to send verification email</string>
+    <string name="emailDomainError">Invalid email domain</string>
+    <string name="emailInfo">Verification email sent to </string>
 
+    <string name="fermiDomain" translatable="false">fermimn.edu.it</string>
     <string name="serverURL" translatable="false">https://endpoint-fyi7.onrender.com</string>
     <string name="fermiCalendarID" translatable="false">isfermimantova@gmail.com</string>
     <string name="googleCalendarApiKey" translatable="false">AIzaSyDOtGM5jr8bNp1utVpG2_gSRH03RNGBkI8</string>
@@ -30,4 +31,5 @@
     <string name="search_text">Search text</string>
     <string name="no_events">No events found</string>
     <string name="class_string">Class</string>
+    <string name="more">more</string>
 </resources>

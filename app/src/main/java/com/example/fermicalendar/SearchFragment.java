@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -86,13 +87,13 @@ public class SearchFragment extends Fragment {
                 // If the response code is between 200 and 300
                 if (response.isSuccessful()) {
                     // Get the list of classes
-                    List<String> classes  = gson.fromJson(response.body().string(), Classes.class).classes;
+                    List<String> classes = new ArrayList<>();
+                    classes.add("None");
+                    classes.addAll(gson.fromJson(response.body().string(), Classes.class).classes);
 
                     // Because onResponse runs on a different thread than the UI one
                     // and the recyclerView can only be modified on the main thread
-                    requireActivity().runOnUiThread(() -> {
-                        classDropdown.setSimpleItems(classes.toArray(new String[0]));
-                    });
+                    requireActivity().runOnUiThread(() -> classDropdown.setSimpleItems(classes.toArray(new String[0])));
                 } else {
                     Snackbar.make(rootView, getString(R.string.calendarError), Snackbar.LENGTH_LONG).show();
                 }
@@ -159,12 +160,13 @@ public class SearchFragment extends Fragment {
                 // If the response code is between 200 and 300
                 if (response.isSuccessful()) {
                     // Get the list of events
-                    List<Event> events  = gson.fromJson(response.body().string(), CalendarResponse.class).items;
+                    List<Event> events = gson.fromJson(response.body().string(), CalendarResponse.class).items;
 
                     // Filter the events out
                     for(int i = 0; i < events.size(); i++) {
                         if(!events.get(i).summary.toLowerCase().contains(searchTerm.toLowerCase()) ||
-                            !events.get(i).summary.toLowerCase().contains((classDropdown.getText().toString().replace(" ", "") + " ").toLowerCase())) {
+                                (!classDropdown.getText().toString().equals("None") &&
+                                        !events.get(i).summary.toLowerCase().contains((classDropdown.getText().toString().replace(" ", "") + " ").toLowerCase()))) {
                             events.remove(i);
                             i--;
                         }
@@ -175,6 +177,8 @@ public class SearchFragment extends Fragment {
                     requireActivity().runOnUiThread(() -> {
                         // Check to see if events is empty
                         if(events.size() == 0) {
+                            // Clear the events list
+                            recyclerView.setAdapter(new EventAdapter(new ArrayList<>()));
                             Snackbar.make(rootView, getString(R.string.no_events), Snackbar.LENGTH_LONG).show();
                         } else {
                             recyclerView.setAdapter(new EventAdapter(events));
