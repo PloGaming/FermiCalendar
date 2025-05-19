@@ -1,7 +1,9 @@
 package com.example.fermicalendar;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -126,6 +128,16 @@ public class SearchFragment extends Fragment {
 
             // After fetching is complete, turn off the loading indicator
             swipeRefreshLayout.setRefreshing(false);
+        });
+        
+        searchText.setOnEditorActionListener((v, actionId, event) -> {
+            // If the event is null, we may be dealing with soft keyboard actions
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                    (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                searchButton.performClick();  // Simulate button click
+                return true;  // Consume the action
+            }
+            return false;
         });
     }
 

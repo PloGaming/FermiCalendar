@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -84,11 +83,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                             intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end.toInstant().toEpochMilli());
 
                             // Start the intent if a calendar app exists
-                            if (intent.resolveActivity(context.getPackageManager()) != null) {
-                                context.startActivity(intent);
-                            } else {
-                                Snackbar.make(rootView, context.getString(R.string.calendarAppError), Snackbar.LENGTH_LONG).show();
-                            }
+                            context.startActivity(intent);
                         })
                         .setNegativeButton("Cancel", (dialog, which) -> {
                             dialog.dismiss();

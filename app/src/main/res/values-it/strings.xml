@@ -19,4 +19,5 @@
     <string name="search_text">Cerca testo</string>
     <string name="no_events">Nessun evento trovato</string>
     <string name="class_string">Classi</string>
+    <string name="calendarAppError">Nessuna app del calendario trovata</string>
 </resources>
