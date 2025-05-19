@@ -30,6 +30,7 @@ import okhttp3.Response;
 
 public class SearchFragment extends Fragment {
 
+    private EditText searchText;
     private RecyclerView recyclerView;
     private Gson gson;
     private OkHttpClient client;
@@ -58,6 +59,9 @@ public class SearchFragment extends Fragment {
         // Set the dropdown
         classDropdown = view.findViewById(R.id.classDropDown);
 
+        // Set the editText
+        searchText = view.findViewById(R.id.searchEditText);
+
         // Build the url
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
@@ -74,6 +78,11 @@ public class SearchFragment extends Fragment {
         client.newCall(req).enqueue(new Callback() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (!isAdded()) {
+                    // Fragment is no longer attached, ignore this callback
+                    return;
+                }
+
                 // If the response code is between 200 and 300
                 if (response.isSuccessful()) {
                     // Get the list of classes
@@ -110,9 +119,8 @@ public class SearchFragment extends Fragment {
                 R.color.md_theme_primaryContainer,
                 R.color.md_theme_primaryContainer
         );
+        // This method is called when the user pulls down to refresh
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            // This method is called when the user pulls down to refresh
-            EditText searchText = view.findViewById(R.id.searchEditText);
             searchEvents(searchText.getText().toString());
 
             // After fetching is complete, turn off the loading indicator

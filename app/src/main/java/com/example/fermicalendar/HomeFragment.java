@@ -168,9 +168,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Snackbar.make(rootView, getString(R.string.calendarError), Snackbar.LENGTH_LONG).show();
-            }
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {}
         });
     }
 }

@@ -17,7 +17,6 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-
         bottomNav.setOnItemSelectedListener(item -> {
             // Can't use the switch statement because it requires compile time constants
             if(item.getItemId() == R.id.nav_home) {

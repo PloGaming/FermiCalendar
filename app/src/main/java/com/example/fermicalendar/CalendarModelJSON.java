@@ -17,3 +17,7 @@ class Event {
 class CalendarResponse {
     List<Event> items;
 }
+
+class Classes {
+    List<String> classes;
+}
