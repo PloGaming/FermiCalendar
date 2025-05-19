@@ -162,7 +162,7 @@ public class HomeFragment extends Fragment {
                     // Because onResponse runs on a different thread than the UI one
                     // and the recyclerView can only be modified on the main thread
                     requireActivity().runOnUiThread(() -> {
-                        recyclerView.setAdapter(new EventAdapter(events));
+                        recyclerView.setAdapter(new EventAdapter(getContext(), rootView, events));
                     });
                 } else {
                     Snackbar.make(rootView, getString(R.string.calendarError), Snackbar.LENGTH_LONG).show();

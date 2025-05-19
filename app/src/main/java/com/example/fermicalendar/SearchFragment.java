@@ -180,10 +180,10 @@ public class SearchFragment extends Fragment {
                         // Check to see if events is empty
                         if(events.size() == 0) {
                             // Clear the events list
-                            recyclerView.setAdapter(new EventAdapter(new ArrayList<>()));
+                            recyclerView.setAdapter(new EventAdapter(getContext(), rootView, new ArrayList<>()));
                             Snackbar.make(rootView, getString(R.string.no_events), Snackbar.LENGTH_LONG).show();
                         } else {
-                            recyclerView.setAdapter(new EventAdapter(events));
+                            recyclerView.setAdapter(new EventAdapter(getContext(), rootView, events));
                         }
                     });
                 } else {
