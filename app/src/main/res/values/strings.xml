@@ -34,7 +34,7 @@
     <string name="class_string">Class</string>
     <string name="more">more</string>
     <string name="dialogTitle">Add to calendar?</string>
-    <string name="dialogMessage">Do you want to add this event to your calendar app?</string>
+    <string name="dialogMessage">Do you want to add this event to your calendar app?\n</string>
     <string name="dialogCancel">Cancel</string>
     <string name="noClass">None</string>
 </resources>

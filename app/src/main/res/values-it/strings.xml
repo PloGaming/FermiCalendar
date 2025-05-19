@@ -21,7 +21,7 @@
     <string name="class_string">Classi</string>
     <string name="calendarAppError">Nessuna app del calendario trovata</string>
     <string name="dialogTitle">Aggiungere al calendario?</string>
-    <string name="dialogMessage">Vuoi aggiungere alla tua app calendario questo evento? </string>
+    <string name="dialogMessage">Vuoi aggiungere alla tua app calendario questo evento?\n</string>
     <string name="dialogCancel">Annulla</string>
     <string name="noClass">Nessuna</string>
 </resources>
