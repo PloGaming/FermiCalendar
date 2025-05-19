@@ -68,8 +68,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             // Set the onclick listener for each event
             holder.itemView.setOnClickListener(v -> {
                 new MaterialAlertDialogBuilder(context)
-                        .setTitle("Aggiungere al calendario?")
-                        .setMessage("Vuoi aggiungere alla tua app calendario questo evento?\n" + event.summary)
+                        .setTitle(context.getString(R.string.dialogTitle))
+                        .setMessage(context.getString(R.string.dialogMessage) + event.summary)
                         .setPositiveButton("OK", (dialog, which) -> {
                             Intent intent = new Intent(Intent.ACTION_INSERT);
                             intent.setData(CalendarContract.Events.CONTENT_URI);
@@ -85,7 +85,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                             // Start the intent if a calendar app exists
                             context.startActivity(intent);
                         })
-                        .setNegativeButton("Cancel", (dialog, which) -> {
+                        .setNegativeButton(context.getString(R.string.dialogCancel), (dialog, which) -> {
                             dialog.dismiss();
                         })
                         .show();

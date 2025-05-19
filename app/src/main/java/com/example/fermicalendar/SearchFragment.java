@@ -90,7 +90,7 @@ public class SearchFragment extends Fragment {
                 if (response.isSuccessful()) {
                     // Get the list of classes
                     List<String> classes = new ArrayList<>();
-                    classes.add("None");
+                    classes.add(getString(R.string.noClass));
                     classes.addAll(gson.fromJson(response.body().string(), Classes.class).classes);
 
                     // Because onResponse runs on a different thread than the UI one
@@ -129,7 +129,8 @@ public class SearchFragment extends Fragment {
             // After fetching is complete, turn off the loading indicator
             swipeRefreshLayout.setRefreshing(false);
         });
-        
+
+        // Call the main method when pressing enter on keyboard
         searchText.setOnEditorActionListener((v, actionId, event) -> {
             // If the event is null, we may be dealing with soft keyboard actions
             if (actionId == EditorInfo.IME_ACTION_SEARCH ||
@@ -139,6 +140,9 @@ public class SearchFragment extends Fragment {
             }
             return false;
         });
+
+        // Call the main method when selecting the class
+        classDropdown.setOnItemClickListener((parent, view1, position, id) -> searchButton.performClick());
     }
 
     protected void searchEvents(String searchTerm) {
