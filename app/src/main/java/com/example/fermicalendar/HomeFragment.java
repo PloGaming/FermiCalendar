@@ -1,15 +1,15 @@
 package com.example.fermicalendar;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.snackbar.Snackbar;
@@ -152,6 +152,8 @@ public class HomeFragment extends Fragment {
         client.newCall(req).enqueue(new Callback() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (!isAdded()) return; // Check if fragment is still attached
+
                 // If the response code is between 200 and 300
                 if (response.isSuccessful()) {
                     // Get the list of events

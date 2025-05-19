@@ -157,6 +157,8 @@ public class SearchFragment extends Fragment {
         client.newCall(req).enqueue(new Callback() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (!isAdded()) return; // Check if fragment is still attached
+
                 // If the response code is between 200 and 300
                 if (response.isSuccessful()) {
                     // Get the list of events
